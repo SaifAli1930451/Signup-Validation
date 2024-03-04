@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    label {
+        font-weight: bold;
+        color: #555;
+    }
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Signup Form</h2>
+    <form id="signupForm" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <span id="usernameError" class="error"></span>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <span id="passwordError" class="error"></span>
+
+        <input type="submit" value="Signup">
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var usernameError = document.getElementById("usernameError");
+        var passwordError = document.getElementById("passwordError");
+        var valid = true;
+
+        // Validate username
+        if (username.trim() === "") {
+            usernameError.innerText = "Username cannot be empty";
+            valid = false;
+        } else if (/\s/.test(username)) {
+            usernameError.innerText = "Username cannot contain spaces";
+            valid = false;
+        } else if (/\d/.test(username) || /[^\w\s]/.test(username)) {
+            usernameError.innerText = "Username cannot contain numbers or special characters";
+            valid = false;
+        } else {
+            usernameError.innerText = "";
+        }
+
+        // Validate password
+        if (password.length < 6) {
+            passwordError.innerText = "Password must be at least 6 characters long";
+            valid = false;
+        } else if (!/[A-Z]/.test(password) || !/[\W_]/.test(password)) {
+            passwordError.innerText = "Password must contain at least one uppercase letter and special character";
+            valid = false;
+        } else {
+            passwordError.innerText = "";
+        }
+
+        return valid;
+    }
+</script>
+
+</body>
+</html>
